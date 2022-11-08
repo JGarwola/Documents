@@ -1,0 +1,12 @@
+ndim 2
+type sd 0.5
+pbc 7.5 7.794 7.40932845460018 7.7
+seed 13245
+mu sd  20.0
+ntau 100
+restart 0
+c0 0.05 
+temperature 1
+v2 sd sd v_sd_sd hspotential
+m_bar 20
+verme 100 1 200 1000

@@ -1,0 +1,13 @@
+ndim 2
+type He 6.0596
+pbc 19.2450089729875 20.0
+mu He -0.4
+ntau 200
+restart 0
+c0 0.01
+temperature 1.0
+nofr 10 17.
+sofk 14
+v2 He He v_He_He hfdhe2
+m_bar 40
+verme 1000 0 100 1000

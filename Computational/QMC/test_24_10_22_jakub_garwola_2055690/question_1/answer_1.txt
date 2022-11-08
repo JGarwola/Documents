@@ -1,0 +1,32 @@
+Compile the fortran codes worm.f and statforw.f (if needed see below for instructions);
+
+- executables are in this folder
+
+Run a PIMC simulation with the provided input file worm.in (save the output on a file);
+
+- output is in worm.out file
+
+Do you see any evidence that some initial blocks should be discarded for equilibration?
+
+- yes, for example when running np.gp program I see that for couple of steps at the begining the average number of partickles is not equilibrized.
+
+Do you see autocorrelation between block averages?
+
+- yes.
+
+Do you need to adjust the size of the move to get an acceptance rate ~0.5 for the “wiggle” moves?
+
+- in the initial simulation wiggle acc. rate is oscilatting around 0.575.
+- after chaging mbar to 25 it oscilates closer around 0.5. (outbput in mbar25.out)
+So if we care about that much precision in this condition then yes, we have to adjust.
+
+Modify the input and run another simulation with statistical error bars ~twice as small;
+
+- for the initial simulation (ntau = 100 as in worm.out) error bars for etot at he last steps were around 0.2. when changing 
+- i increased number of calculations per step to 200 and obtained around twice as small error bars.
+
+The PIMC method has a systematic but controllable error. Modify the input so as to reduce such an error and run another simulation. Compare the acceptance rate for the “wiggle” moves with the previous runs and comment.
+
+- to reduce error we can increase ntau, increase number of block and number of calculations, 
+
+- simulations with bigger mbar have lower acc rate for wiggle because wiggle moves come out of polymer diameter more often.

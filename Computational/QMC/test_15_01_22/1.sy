@@ -1,0 +1,8 @@
+  ndim 2                                                                        
+  type up 25 0.25000000000000000 1.up.x                                                                                                        
+  v0 -33.927504456968229                                                        
+  u2 up up 1.u                                                                  
+  pbc 8.8622692545275807 8.8622692545275807                                     
+  kspace 1.k                                                                    
+  rhok up                                                                       
+  plane-wave up                                                                 

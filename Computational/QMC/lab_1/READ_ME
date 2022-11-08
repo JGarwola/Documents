@@ -1,0 +1,82 @@
+files:
+
+  READ_ME           this file
+
+  statfor.pdf       statistics formulas
+  statfor.f         a fortran implementation of formulas in statfor.pdf
+  statfor           the executable of statfor.f (gfortran statfor.f -o statfor)
+
+  0_pseudorandom.c  use the C generator of pseudorandom numbers
+  1_rnd.c           random numbers uniformly distributed in (a,b)
+  2_tower.c         sampling a discrete random variable
+  3_exp.c           sampling an exponential distribution
+  4_pow.c           sampling a power law
+  5_gauss.c         sampling a gaussian (Box-Muller)
+  6_gauss.c         sampling a gaussian (central limit theorem)
+  7_area.c          calculating pi/4 (area of the circle/area of the square)
+  8_intpow.c        an example of infinite variance
+  9_intpow.c        an example of importance sampling
+
+  m1.c              sampling a gaussian with the metropolis method
+  m2.c              harmonic oscillator
+
+--------------------------------------------------------------------------------
+
+how to use "statfor":
+
+  input:  a string of data from the stantard input
+
+  output: 1) on the standard output: average, variance, correlation time,
+             effective number of points and statistical error on the average;
+          2) on file 'histo.out': a 101-bin histogram of the data;
+          3) on file 'corr.out': the data autocorrelation function;
+          4) on file 'blocking.out': the reblockin analysis of the data.
+
+  the definition of all the above quantities is given in "statfor.pdf".
+
+--------------------------------------------------------------------------------
+
+Exercises with direct sampling:
+
+0) Sample uniform distributions of integer or real numbers.
+   Plot data histograms, calculate average and variance as a function of
+   the number of data.
+
+1) Transform uniform random numbers to sample different distributions:
+
+   * sample integers in (1,k) with non-uniform probability (tower sampling)
+
+   * sample exp(-x)
+
+   * sample (x^k)/(k+1) in (0,1)
+
+   * sample a gaussian (google "Box Muller")
+
+   * sample a gaussian using the central limit theorem
+
+2) Monte Carlo calculation of integrals:
+
+   * calculate A_circle/A_square;
+     analyze the statistical error as a function of the number of data
+
+   * calculate \int_0^1 x^gamma dx sampling pi(x)=1 for gamma=1, -0.4, -0.8;
+     note the effect of infinite variance for gamma=-0.8
+
+   * calculate \int_0^1 x^(-0.8) (up to a factor A) 
+     sampling a distribution proportional to x^(-0.7);
+     show that importance sampling removes the divergence of the variance;
+     how would you calculate the factor A?
+
+--------------------------------------------------------------------------------
+
+Metropolis sampling
+
+0) sample a gaussian with moves uniformly distributed around the current 
+   position.
+
+1) calculate ground state properties of the harmonic oscillator;
+   analyze the results (averages, statistical errore, equilibration times,
+   autocorrelations as a function of the size of the move).
+
+2) modify the harmonic oscillator code to calculate ground state properties of
+   the Hydrogen atom.

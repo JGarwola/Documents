@@ -1,0 +1,16 @@
+  ndim 2                                                                        
+  type up 12 0.25000000000000000 2.up.x                                         
+  type down 12 0.25000000000000000 2.down.x                                     
+  v2 up up 2.v 1                                                                
+  v2 down down 2.v 1                                                            
+  v2 up down 2.v 1                                                              
+  v0 -32.194369817451616                                                        
+  u2 up up 2.u                                                                  
+  u2 down down 2.u                                                              
+  u2 up down 2.u                                                                
+  pbc 8.6832150546992111 8.6832150546992111                                     
+  kspace 2.k                                                                    
+  rhok up                                                                       
+  rhok down                                                                     
+  plane-wave up                                                                 
+  plane-wave down                                                               

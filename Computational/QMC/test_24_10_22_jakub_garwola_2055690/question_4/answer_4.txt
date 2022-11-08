@@ -1,0 +1,11 @@
+If you found a “regular” solid phase at 3, you may want to further increase the chemical
+potential to further increase the density. Look at the pair distribution function g(r) and
+compare the number of particles with snapshots of the configurations (coord.gp). You may
+see something different from what you expect for a regular solid: do you understand what’s
+going on?
+
+- for this question i run only 50 steps simulations to save time, the equalization time i samll enough for 50 steps to be enough
+
+- i will set temp=1 and mu=40 and check g(r) and coord (in folder mu40)
+
+- now i run for temp=1 and mu=80 and compare. in coord i see the density increase, also g(r) now have peak around zero. this is because more and more partickles are "bumping into each other" at the dintance of parameter "a" defined in the hamiltonian.

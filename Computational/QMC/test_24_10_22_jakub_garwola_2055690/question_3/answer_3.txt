@@ -1,0 +1,30 @@
+The state of the system depends on the temperature and the chemical potential; modify the
+input file to characterize at least one phase different from that identified at 2. Note that
+equilibration times need not be the same for all phases; if needed, run longer runs and/or use
+“restart 1” and append the output of more runs to the output file. Use a dedicated subfolder
+to collect output files for each phase you find.
+
+- I changed mu to 40 (with temperature still 1) and obtained a solid, I deduced that mainly by obserwing peaks in sofk.gp in shape of the crystal structure. (output in folder solid)
+
+- next i changed to mu=20 and temp=0.5 and obtained a superfluid, i deduced that from fluid like sofr and non zero superfluid fraction (files in superfluid folder)
+
+- lastly i changed to mu=0.5 and temp = 0.5 and obtained L+G phase, it has characteristic sofr with less peaks than previous phases and no superfluid fraction
+
+Do you see any difference on the frequency of the Z-sector configurations between different
+phases? Tell what is (and/or modify) the relevant parameter in the input file to tune such a
+frequency.
+
+- yes I can see the difference, by runnung code below and looking at average zsector
+
+grep zsector worm.out | awk '{print 1$, 4$}' | ./statforw.x
+
+I obtained for L+G
+average                               0.1523000000
+
+for solid
+average                               0.7273000000
+
+and for superfluid
+average                               0.2681000000
+
+- The relevant parameter is c0, it is the "scaling factor" that multiplies the G sector factor in the Z fucntion.

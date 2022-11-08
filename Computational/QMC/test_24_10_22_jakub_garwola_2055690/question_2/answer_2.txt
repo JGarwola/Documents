@@ -1,0 +1,6 @@
+The temperature and chemical potential in the provided input file correspond to a specific
+phase of the system; can you tell which phase? (collect in a dedicated subfolder the output
+files: the output of the simulation and any of gofr, sofk, nofr, restart.coord as you deem
+relevant).
+
+- this phase is fluid, we can see that by analyzing plot from sofr.gp. in this phase we dont see peaks like in solid phase and the superfluid fraction is zero. (saved in file fluid.out and correspoinding sofk)
