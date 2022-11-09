@@ -3,24 +3,25 @@ nst = 100 #number of spets
 dt = 0.0001 #time step size
 k = 1.0 #Boltzman constant
 T = 1.0 #initial temperature
-N = 3 #number of partickles
+N = 4 #number of partickles
 L = 10 #size of the box
 epsilon = 1.0 #parameter for LJ potencial
 sigma = k*T/m
 
 import numpy as np
+from numpy import linalg as la
 from matplotlib import pyplot as plt
 
 def modL(r):
     return r%L
 
 def dist(R,i,j):
-    return R[i,0]-R[j,0]
+    return la.norm(R[i,0]-R[j,0])
 
 def temp(R, i, eta = 1, N = 1):
     Ekin = 0.0
     for i in range(np.shape(R)[i,0]-1):
-        Ekin += m*R[i,1]**2
+        Ekin += m*la.norm(R[i,1])**2
     return (Ekin)/(eta*N*k)
 
 def force(R,i,j):
@@ -38,8 +39,8 @@ def calc_energy(R):
             if(i != j):
                 d = dist(R_0,i,j)
                 Epot[i] += -4*epsilon*( ((sigma/d)**12) - ((sigma/d)**6) )
-        Ekin[i] = m*R_0[i,1]**2/2
-    return np.reshape(np.array([Ekin,Epot]),(3,2))
+        Ekin[i] = m*la.norm(R_0[i,1])**2/2
+    return np.reshape(np.array([Ekin,Epot]),(N,2))
 
 def step(R):
     Rp = np.zeros(np.shape(R_0))
@@ -54,10 +55,8 @@ def step(R):
         Rp[i] = np.array([modL(r),v,F])
     return Rp
 
-R_0 = np.array([np.random.normal(0.0,1.0),np.random.normal(0.0,sigma),0])
-for i in range(N-1):
-    R_0 = np.vstack((R_0,[[np.random.normal(0.0,1.0),
-                        np.random.normal(0.0,sigma),0]]))
+R_0 = np.reshape(np.array([np.random.normal(0.0,1.0,N),
+                np.random.normal(0.0,sigma,N),np.zeros(N)]),(4,3))
 
 data = np.empty((nst,N,3)) # data([step, partickle, variable])
 data[0] = R_0
@@ -74,5 +73,5 @@ np.savetxt("data.txt", np.reshape(data,(nst*N,3)))
 
 fig,ax = plt.subplots(2)
 ax[0].plot(range(nst),data[:,:,0])
-ax[1].plot(range(nst),ens[:,:,1])
+ax[1].plot(range(nst),ens[:,:,1]+ens[:,:,0])
 plt.show()
