@@ -1,6 +1,7 @@
 import numpy as np
 import numba as nb
-import matplotlib.pyplot as plt
+from parameters import *
+from format_xyz import form
 
 from Init_masses_arr import Init_masses_arr
 from Init_potential_parameters_arr import Init_pot_par
@@ -8,27 +9,6 @@ from Init_v import Init_v
 from Init_pos import Lattice_R0,Line_R0
 
 from step import step
-
-
-#--- Run parameters
-nst = 1000 #number of steps
-dt  = 0.001 #time step size
-tau = 0.001 # lamb parameter
-stdW = 0.1 # lamb parameter
-L   = 5 #size of the box
-N   = 3 #number of partickles
-M   = 2 #number of types of partickles
-reset_p_tot = N/100 #how often set total momentum to zero
-
-# cut_off for things not to go nuts
-cut_off_f = np.nan
-cut_off_d = 0.0
-
-
-
-T_0   = 1e-4#initial temperature
-k     = 1.0 #Boltzman constant
-types = np.array(np.random.randint(2,size=N)) # randomly choose the type of the particles
 
 epsilon_diag = np.array([1,1]) #energy for LJ potencial
 sigma_diag   = np.array([1,1]) #characterstic distances
@@ -42,7 +22,7 @@ epsilon,sigma = Init_pot_par(epsilon_diag,sigma_diag) # Matrices with the cross 
 
 # Initial configuration
 R_0      = np.random.uniform(0,L,(N,3,3)) # (N, variable, dimension)
-R_0[:,1] = np.random.uniform(-1,1,size=(N,3))*0.1
+R_0[:,1] = np.random.uniform(-1,1,size=(N,3))*0.5
 R_0[:,2] = 0
 R_0      = Init_v(R_0,mass) # set the total momentum to zero
 #R_0      = Line_R0(R_0,N,L,w=0)
@@ -73,21 +53,6 @@ for i in range(nst):
 
     data_en[i]  = Ep,Ek
 
-
-colors = ['b','r']
-fig    = plt.figure()
-ax     = fig.add_subplot(111, projection='3d')
-jumps  = 50
-
-for i in range(N):
-    ax.scatter( data_conf[ ::jumps , i , 0 , 0 ] ,
-                data_conf[ ::jumps , i , 0 , 1 ],
-                data_conf[ ::jumps , i , 0 , 2 ]
-                  )
-
-
-ax2 = fig.add_subplot(444)
-ax2.plot( data_en[:,0] , label = r'$E_{potential}$' )
-ax2.plot( data_en[:,1] , label = r'$E_{kinetic}$' )
-ax2.plot( data_en[:,0]+data_en[:,1] , label = r'$E_{tot}$' )
-plt.show()
+form(types, data_conf, labels)
+np.savetxt("data_conf.xyz", np.reshape(data_conf[:,:,0,:],(nst,N*3)), header='configuration in simulation' )
+np.savetxt("data_en.xyz", data_en, header='energies in simulation')
